@@ -290,6 +290,7 @@ public class Algorithms {
                     next = e;
                     break;
                 }
+                // pokud narazím na obrácenou - swap
                 else if (cure.end.equals(e.end)){
                     e.swap();
                     next = e;
@@ -297,10 +298,12 @@ public class Algorithms {
                 }
             }         
             
+            // když uzavřeš ring
             if(next.end.equals(poly.edges.get(0).start)){
                 poly.edges.add(next);
                 edges.remove(next);
-
+                
+                // orientation
                 if (getPolygonOrientation(poly) == OrientationEnum.CCW) {
                     poly.side = PositionEnum.OUTSIDE;
                 } else {
@@ -309,7 +312,8 @@ public class Algorithms {
 
                 out.add(poly);
                 poly = new Polygon();
-
+                
+                // když neni seznam prázdný
                 if (!edges.isEmpty()) {
                     cure = edges.get(0);
                     edges.remove(cure);
@@ -317,6 +321,7 @@ public class Algorithms {
                     poly.edges.add(cure);
                 }
             }
+            // přidávej pokud si už neudělal ring
             else {
                 edges.remove(next);
                 poly.edges.add(next);
